@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+ app1:
+  build: .
+  restart: always
+  depends_on:
+   - db
+  volumes:
+   - ./init.sql:/docker-entrypoint-initdb.d/init.sql:rw
+  ports:
+   - "5005:5000"
+  environment:
+    DBUSER: test
+    DBPASS: test
+    DBHOST: db
+    DBNAME: test
+    FLASK_ENV: development
+  
+
+
+
+ app2:
+  build: .
+  restart: always
+  depends_on:
+   - db
+  volumes:
+   - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  ports:
+   - "5006:5000"
+  environment:
+    DBUSER: test2
+    DBPASS: test2
+    DBHOST: db
+    DBNAME: test
+    FLASK_ENV: development
+ db:
+  image: "postgres"
+  
+  environment:
+   POSTGRES_USER: test
+   POSTGRES_PASSWORD: test
+   POSTGRES_DB: test
+   restart: always

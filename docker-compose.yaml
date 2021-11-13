@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+ web:
+  build: .
+  ports:
+   - "5000:5000"
+  restart: always
+  environment:
+    DBUSER: test
+    DBPASS: test
+    DBHOST: localhost
+    DBNAME: test
+    FLASK_APP: app.py
+  depends_on:
+   - db
+ db:
+  image: "postgres"
+  
+  environment:
+   POSTGRES_USER: test
+   POSTGRES_PASSWORD: test
+   POSTGRES_DB:  test
+   restart: always
+  ports:
+   - "5001:5000"
