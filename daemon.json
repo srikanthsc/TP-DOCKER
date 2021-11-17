@@ -1,0 +1,5 @@
+{
+
+	"insecure-registries": ["sc.local.com:5000"]
+
+}
